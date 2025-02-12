@@ -11,8 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                def mvnHome = $MAVEN_HOME
-                bat 'mvn package'
+                bat "\"%MAVEN_HOME%\\bin\\mvn\" package"
             }
         }
         stage('Build Docker Image') {
