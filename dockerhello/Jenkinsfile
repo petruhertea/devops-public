@@ -11,6 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
+                def mvnHome = $MAVEN_HOME
                 bat 'mvn package'
             }
         }
