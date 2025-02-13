@@ -4,11 +4,6 @@ pipeline {
         DOCKER_IMAGE = "petru1405/devops-public:${env.BUILD_NUMBER}"
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build') {
             steps {
                 bat "\"%MAVEN_HOME%\\mvnw.cmd" package"
