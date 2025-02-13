@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat "\"%MAVEN_HOME%\\mvnw.cmd" package
+                bat "\"%MAVEN_HOME%\\mvn\" package"
             }
         }
         stage('Build Docker Image') {
