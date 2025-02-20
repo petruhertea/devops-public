@@ -1,6 +1,7 @@
 package com.petruth.dockerhello;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
@@ -21,10 +22,15 @@ public class HelloController {
         lottoNumbers.append("The numbers for this round are: ");
 
         for (int i = 0; i < 5; i++) {
-            lottoNumbers.append(randomNumber.nextInt(1,49));
+            lottoNumbers.append(randomNumber.nextInt(1,50));
             lottoNumbers.append(" ");
         }
 
         return lottoNumbers.toString();
+    }
+
+    @GetMapping("/hello/{name}")
+    public String helloName(@PathVariable String name){
+        return "Hello, "+name;
     }
 }
