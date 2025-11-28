@@ -9,28 +9,52 @@ import java.util.Random;
 @RestController
 public class HelloController {
     @GetMapping("/hello")
-    public String helloDocker(){
+    public String helloDocker() {
         return "Hello, Docker World!";
     }
 
     @GetMapping("/lotto")
-    public String getLottoWinner(){
-        Random randomNumber = new Random();
+    public String getLottoResult() {
+        Random random = new Random();
 
-        StringBuilder lottoNumbers = new StringBuilder();
-
-        lottoNumbers.append("The numbers for this round are: ");
+        // Tonight's Lotto ticket
+        int[] winning = new int[5];
+        // User Lotto ticket
+        int[] user = new int[5];
 
         for (int i = 0; i < 5; i++) {
-            lottoNumbers.append(randomNumber.nextInt(1,50));
-            lottoNumbers.append(" ");
+            winning[i] = random.nextInt(1, 50);
+            user[i] = random.nextInt(1, 50);
         }
 
-        return lottoNumbers.toString();
+        // Compare how many numbers match
+        int matches = 0;
+        for (int w : winning) {
+            for (int u : user) {
+                if (w == u) {
+                    matches++;
+                }
+            }
+        }
+
+        boolean won = matches == 5;
+
+        return "Winning numbers: " + formatArray(winning) +
+                "\nYour numbers: " + formatArray(user) +
+                "\nMatches: " + matches +
+                "\n" + (won ? "You won! 🎉" : "You lost. Try again!");
+    }
+
+    private String formatArray(int[] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (int nr : arr) {
+            sb.append(nr).append(" ");
+        }
+        return sb.toString().trim();
     }
 
     @GetMapping("/hello/{name}")
-    public String helloName(@PathVariable String name){
-        return "Hello, "+name;
+    public String helloName(@PathVariable String name) {
+        return "Hello, " + name;
     }
 }
